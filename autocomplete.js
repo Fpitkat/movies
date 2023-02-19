@@ -45,7 +45,15 @@ const createAutoComplete = ({
       resultsWrapper.appendChild(option)
     }
   }
-  input.addEventListener('input', debounce(onInput, 500))
+  // input.addEventListener('input', debounce(onInput, 500))
+
+  let timeout = null
+  input.addEventListener('keyup', function (event) {
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      onInput(event)
+    }, 500)
+  })
 
   document.addEventListener('click', (event) => {
     if (!root.contains(event.target)) {
